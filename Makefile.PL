@@ -7,6 +7,7 @@ perl_version   '5.006';
 all_from       'lib/Math/PercentChange.pm';
 
 # Specific dependencies
+requires       'Scalar::Util'  => '1.23';
 test_requires  'Test::More'  => '0.42';
 
 # Testing

@@ -1,6 +1,8 @@
 package Math::PercentChange;
 use warnings;
 use strict;
+use Carp;
+use Scalar::Util qw/dualvar/;
 
 =head1 NAME
 
@@ -8,26 +10,30 @@ Math::PercentChange - calculate the percent change between two values
 
 =head1 VERSION
 
-version 0.01
+Version 0.03
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.03';
 
 =head1 SYNOPSIS
 
   use Math::PercentChange qw(percent_change);
   my $from = 10;
-  my $to = 5;
+  my $to   = 5;
   my $diff = percent_change($from, $to); # -50
   
+  use Math::PercentChange qw(f_percent_change);
+  my $from = 10;
+  my $to   = 15;
+  my $diff = f_percent_change($from, $to, "%.03f); # 50.000%
 =cut
 
 our (@ISA, @EXPORT_OK);
 BEGIN {
   require Exporter;
   @ISA = qw(Exporter);
-  @EXPORT_OK = qw(percent_change); # symbols to export on request
+  @EXPORT_OK = qw(percent_change f_percent_change);
 }
 
 =head2 percent_change 
@@ -36,11 +42,49 @@ Calculate the percent change between two values.  Returns the percent difference
 
 =cut
 
-
 sub percent_change {
   my ($from, $to) = @_; 
-  my $diff = (($to - $from) / $from) * 100;
+  return unless $from;
+
+  if ($from == 0 && $to == 0) {
+    return 0;
+  }
+  my $diff = (($to - $from) / abs($from)) * 100;
   return $diff;
+}
+
+=head2 f_percent_change 
+
+Calculate the percent change.  Returns a L<Scalar::Util|dualvar>.  When used in numeric context, returns an unforatted percentage value.  When used in string context, returns a formatted sprintf value.  
+
+Formatting options for sprintf can be passed as a third argument.  If no formatting option is passed, the default rounds to two decimal places and a percent sign ("%.2f%").  
+
+Passing a fourth argument will disable the addition of a percent sign.
+
+=cut
+
+sub f_percent_change {
+  my ($from, $to, $format, $no_ps) = @_; 
+  return unless $from;
+
+  $format = "%.2f" unless $format; # TODO: Validate format
+
+  my $ps;
+  if ($no_ps) {
+    $ps = ''; 
+  }
+  else {
+    $ps = '%';
+  }
+
+  my $pc; 
+  if ($from == 0 && $to == 0) {
+    $pc = 0;
+  }
+  else {
+    $pc = (($to - $from) / abs($from)) * 100;
+  }
+  return dualvar $pc, sprintf($format, $pc) . $ps;
 }
 
 =head1 AUTHOR
