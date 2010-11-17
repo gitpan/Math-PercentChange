@@ -10,23 +10,25 @@ Math::PercentChange - calculate the percent change between two values
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 =head1 SYNOPSIS
 
   use Math::PercentChange qw(percent_change);
   my $from = 10;
   my $to   = 5;
-  my $diff = percent_change($from, $to); # -50
+  my $diff = percent_change($from, $to);               # -50
   
   use Math::PercentChange qw(f_percent_change);
   my $from = 10;
   my $to   = 15;
-  my $diff = f_percent_change($from, $to, "%.03f); # 50.000%
+  my $diff = f_percent_change($from, $to, "%.03f");    # 50.000%
+# or
+  my $diff = f_percent_change($from, $to, "%.03f", 1); # 50.000
 =cut
 
 our (@ISA, @EXPORT_OK);
@@ -55,11 +57,11 @@ sub percent_change {
 
 =head2 f_percent_change 
 
-Calculate the percent change.  Returns a L<Scalar::Util|dualvar>.  When used in numeric context, returns an unforatted percentage value.  When used in string context, returns a formatted sprintf value.  
+Calculate the percent change.  Returns a L<dualvar|Scalar::Util>.  When used in numeric context, returns an unfomatted percentage value.  When used in string context, returns a formatted sprintf value.  
 
-Formatting options for sprintf can be passed as a third argument.  If no formatting option is passed, the default rounds to two decimal places and a percent sign ("%.2f%").  
+Formatting options for sprintf can be passed as a third argument.  If no formatting option is passed, the default rounds to two decimal places ("%.2f") and appends a percent sign.  
 
-Passing a fourth argument will disable the addition of a percent sign.
+Passing a fourth argument (1) will prevent the routine from appending a percent sign.
 
 =cut
 
