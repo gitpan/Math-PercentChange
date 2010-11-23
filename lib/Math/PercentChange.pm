@@ -10,11 +10,11 @@ Math::PercentChange - calculate the percent change between two values
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 SYNOPSIS
 
@@ -45,7 +45,7 @@ Calculate the percent change between two values.  Returns the percent difference
 =cut
 
 sub percent_change {
-  my ($from, $to) = @_; 
+  my ($from, $to) = @_;
   return unless $from;
 
   if ($from == 0 && $to == 0) {
@@ -57,7 +57,7 @@ sub percent_change {
 
 =head2 f_percent_change 
 
-Calculate the percent change.  Returns a L<dualvar|Scalar::Util>.  When used in numeric context, returns an unfomatted percentage value.  When used in string context, returns a formatted sprintf value.  
+Calculate the percent change.  Returns a L<dualvar|Scalar::Util>.  When used in numeric context, returns an unformatted percentage value.  When used in string context, returns a formatted sprintf value.  
 
 Formatting options for sprintf can be passed as a third argument.  If no formatting option is passed, the default rounds to two decimal places ("%.2f") and appends a percent sign.  
 
@@ -66,20 +66,20 @@ Passing a fourth argument (1) will prevent the routine from appending a percent 
 =cut
 
 sub f_percent_change {
-  my ($from, $to, $format, $no_ps) = @_; 
+  my ($from, $to, $format, $no_ps) = @_;
   return unless $from;
 
-  $format = "%.2f" unless $format; # TODO: Validate format
+  $format = '%.2f' unless $format; # TODO: Validate format
 
   my $ps;
   if ($no_ps) {
-    $ps = ''; 
+    $ps = '';
   }
   else {
     $ps = '%';
   }
 
-  my $pc; 
+  my $pc;
   if ($from == 0 && $to == 0) {
     $pc = 0;
   }

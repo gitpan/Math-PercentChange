@@ -1,5 +1,5 @@
 use inc::Module::Install;
-use Module::Install::ExtraTests;
+#use Module::Install::ExtraTests;
 
 # Define metadata
 name           'Math-PercentChange';
@@ -11,6 +11,6 @@ requires       'Scalar::Util'  => '1.23';
 test_requires  'Test::More'  => '0.42';
 
 # Testing
-extra_tests;
+#extra_tests;
 
 WriteAll;
