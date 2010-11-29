@@ -10,11 +10,11 @@ Math::PercentChange - calculate the percent change between two values
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 =head1 SYNOPSIS
 
@@ -69,6 +69,7 @@ Passing a fourth argument (1) will prevent the routine from appending a percent 
 sub f_percent_change {
   my ($from, $to, $format, $no_ps) = @_;
   return unless $from;
+  return if int($from) == 0;
 
   $format = '%.2f' unless $format; # TODO: Validate format
 
