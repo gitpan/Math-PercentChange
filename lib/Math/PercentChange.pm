@@ -10,11 +10,11 @@ Math::PercentChange - calculate the percent change between two values
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =cut
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 =head1 SYNOPSIS
 
@@ -47,6 +47,7 @@ Calculate the percent change between two values.  Returns the percent difference
 sub percent_change {
   my ($from, $to) = @_;
   return unless $from;
+  return if int($from) == 0;
 
   if ($from == 0 && $to == 0) {
     return 0;

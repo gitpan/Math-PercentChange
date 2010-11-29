@@ -4,6 +4,7 @@ use inc::Module::Install;
 # Define metadata
 name           'Math-PercentChange';
 perl_version   '5.006';
+license        'perl';
 all_from       'lib/Math/PercentChange.pm';
 
 # Specific dependencies
